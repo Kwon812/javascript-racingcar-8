@@ -49,7 +49,7 @@ describe("자동차 경주", () => {
     });
 
 
-    describe("예외테스트", () => {
+    describe("자동차이름 예외테스트", () => {
         test("자동차이름이 6자 이상일경우", async () => {
             // given
             const inputs = ["pobi,javaji"];
@@ -64,28 +64,40 @@ describe("자동차 경주", () => {
         test("자동차이름이 중복일경우", async () => {
             // given
             const inputs = ["pobi","pobi"];
-            mockQuestions(inputs);
 
             // when
+            // const app = new App();
             const cars=inputs.map(input=>new Car(input))
             // then
              expect(()=>Validator.carNamesValidator(cars)).toThrow("[ERROR]");
         });
 
+        test("자동차이름이 0자 이하인경우 ", async () => {
+            // given
+            const inputs = ["pobi",""];
+
+            // when
+            // then
+            expect(()=>inputs.map(input=>new Car(input))).toThrow("[ERROR]");
+        });
+
+
+    });
+
+    describe('실행횟수 예외테스트',()=>{
         test("실행 횟수가 10보다 큰경우 ", async () => {
             // given
             const input =12;
-            mockQuestions(input);
+
 
             // when
-            const app = new App();
 
             // then
             expect(()=>Validator.gameCountValidator(input)).toThrow("[ERROR]");
         });
         test("실행 횟수가 0보다 작은경우 ", async () => {
             // given
-            const input =0;
+            const input =-3;
             mockQuestions(input);
 
             // when
@@ -94,6 +106,6 @@ describe("자동차 경주", () => {
             // then
             expect(()=>Validator.gameCountValidator(input)).toThrow("[ERROR]");
         });
-    });
+    })
 
 });
